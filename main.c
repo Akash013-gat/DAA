@@ -1,37 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define size 100
-int c;
-void bubblesort(int a[size],int n)
+int count;
+int partition(int a[10],int low,int high)
 {
-    int i,j,t;
-    for(i=0;i<=n-2;i++)
+  int i,j,pivot,temp;
+i=low+1;
+j=high;
+pivot=a[low];
+while(1)
+{
+while((pivot>=a[i])&&i<=high)
+{
+    i++;
+    count++;
+}
+count++;
+while (pivot<a [j]&&j>=low)
+{
+    j--;
+    count++;
+}
+count++;
+if(i<j)
+{
+    temp=a[i];
+    a[i]=a[j];
+    a[j]=temp;
+}
+else
+{
+    temp=a[low];
+    a[low]=a[j];
+    a[j]=temp;
+    return j;
+}
+}
+}
+void quicksort(int a[10],int low,int high)
+{
+    int i,j;
+    if(low<high)
     {
-        for(j=0;j<=n-2-i;j++)
-        {
-
-        c++;
-        if(a[j]>a[j+1])
-        {
-            t=a[j];
-            a[j]=a[j+1];
-            a[j+1]=t;
-        }
-        }
+        j=partition(a,low,high);
+        quicksort(a,low,j-1);
+        quicksort(a,j+1,high);
     }
 }
 int main()
 {
-    int i,a[size],n;
-    printf("read Array :\n");
+    int a[10];
+    int i,n;
+    printf("\n enter no of elements:");
     scanf("%d",&n);
-    printf("\n read array element\n");
-    for(i=0;i<n;i++)
-        scanf("%d",&a[i]);
-    bubblesort(a,n);
-    printf("\n Sorted element are \n");
-    for(i=0;i<n;i++)
+    printf("\n enter elements\n");
+    for(i=1;i<n;i++)
+    scanf("%d",&a[i]);
+    quicksort(a,1,n);
+    printf("Sorted elements:\n");
+    for(i=1;i<n;i++)
         printf("%d\t",a[i]);
-        printf("comparsion=%d\n",c);
+        printf("\n number of counts:%d\n",count);
     return 0;
+
 }
