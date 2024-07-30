@@ -1,37 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define size 100
-int c;
-void bubblesort(int a[size],int n)
+int min(int a,int b)
 {
-    int i,j,t;
-    for(i=0;i<=n-2;i++)
-    {
-        for(j=0;j<=n-2-i;j++)
-        {
 
-        c++;
-        if(a[j]>a[j+1])
-        {
-            t=a[j];
-            a[j]=a[j+1];
-            a[j+1]=t;
-        }
-        }
-    }
+    if(a<b)
+        return a;
+    else
+        return b;
+}
+void floyds(int a[10][10],int n){
+int i,j,k;
+for(k=1;k<=n;k++)
+    for(i=1;i<=n;i++)
+      for(j=1;j<=n;j++)
+         a[i][j]=min(a[i][j],a[i][k]+a[k][j]);
 }
 int main()
 {
-    int i,a[size],n;
-    printf("read Array :\n");
+    int n,i,j,a[10][10];
+    printf("\n Read the no of nodes:");
     scanf("%d",&n);
-    printf("\n read array element\n");
-    for(i=0;i<n;i++)
-        scanf("%d",&a[i]);
-    bubblesort(a,n);
-    printf("\n Sorted element are \n");
-    for(i=0;i<n;i++)
-        printf("%d\t",a[i]);
-        printf("comparsion=%d\n",c);
+    printf("\n Read cost matrix \n");
+    for(i=1;i<=n;i++)
+        for(j=1;j<=n;j++)
+         scanf("%d",&a[i][j]);
+    floyds(a,n);
+    printf("\nAll pair shortest path\n");
+     for(i=1;i<=n;i++){
+        for(j=1;j<=n;j++){
+            printf("%d\t",a[i][j]);
+        }
+        printf("\n");
+     }
     return 0;
 }
