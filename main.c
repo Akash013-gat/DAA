@@ -1,37 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define size 100
-int c;
-void bubblesort(int a[size],int n)
+void Dijkstar(int c[10][10],int n,int s)
 {
-    int i,j,t;
-    for(i=0;i<=n-2;i++)
+    int i,u,v,co=1,di[10],vi[10],mi;
+    for(i=1;i<=n;i++)
     {
-        for(j=0;j<=n-2-i;j++)
-        {
+        vi[i]=0;
+        di[i]=c[s][i];
+    }
+    vi[s]=1;
+    di[s]=0;
+    while(co<=n)
+    {
+      mi=999;
+      for(i=1;i<=n;i++){
+        if(vi[i]==0&&di[i]<mi){
+            mi=di[i];
+            u=i;
+        }
+      }
+      vi[u]=1;
+      co++;
+      for(i=1;i<=n;i++)
+      {
+          if(di[i]>di[u]+c[u][i])
 
-        c++;
-        if(a[j]>a[j+1])
-        {
-            t=a[j];
-            a[j]=a[j+1];
-            a[j+1]=t;
-        }
-        }
+
+            di[i]=di[u]+c[u][i];
+      }
+    }
+    printf("\n shortest path from %d",s);
+    for(i=1;i<=n;i++){
+        printf("\n %d to %d  = %d",s,i,di[i]);
     }
 }
 int main()
 {
-    int i,a[size],n;
-    printf("read Array :\n");
+    int n,c[10][10],i,j,s;
+    printf("\nRead number of nodes :");
     scanf("%d",&n);
-    printf("\n read array element\n");
-    for(i=0;i<n;i++)
-        scanf("%d",&a[i]);
-    bubblesort(a,n);
-    printf("\n Sorted element are \n");
-    for(i=0;i<n;i++)
-        printf("%d\t",a[i]);
-        printf("comparsion=%d\n",c);
+     printf("\nRead source vertex \n");
+    scanf("%d",&s);
+     printf("\n Read cost matrix \n");
+     for(i=1;i<=n;i++){
+        for(j=1;j<=n;j++){
+            scanf("%d",&c[i][j]);
+            if(c[i][j]==0)
+                c[i][j]=999;
+        }
+     }
+    Dijkstar(c,n,s);
     return 0;
 }
+
