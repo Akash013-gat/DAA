@@ -1,48 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-void bfs(int a[10][10],int n,int v[10],int s)
+#define size 100
+int c;
+void bubblesort(int a[size],int n)
 {
-    int q[10],r=-1,f=0,de,i;
-    v[s]=1;
-    q[++r]=s;
-    while(f<=r)
+    int i,j,t;
+    for(i=0;i<=n-2;i++)
     {
-        de=q[f++];
-        for(i=1;i<=n;i++)
+        for(j=0;j<=n-2-i;j++)
         {
-            if(a[de][i]==1 && v[i]==0)
-            {
-                q[++r]=i;
-                v[i]=1;
-            }
+
+        c++;
+        if(a[j]>a[j+1])
+        {
+            t=a[j];
+            a[j]=a[j+1];
+            a[j+1]=t;
+        }
         }
     }
 }
 int main()
 {
-    int n,a[10][10],i,j,v[10],c=0;
-    printf("\n Read the number nodes : ");
+    int i,a[size],n;
+    printf("read Array :\n");
     scanf("%d",&n);
-    printf("\n Read adjaceny matrix \n");
-    for(i=1;i<=n;i++)
-    {
-        for(j=1;j<=n;j++)
-            scanf("%d",&a[i][j]);
-    }
-    for(i=1;i<=n;i++)
-        v[i]=0;
-    for(i=1;i<=n;i++)
-    {
-        if(v[i]==0)
-        {
-            bfs(a,n,v,i);
-            c++;
-        }
-    }
-    if(c==1)
-        printf("\n Graph connected,%d component",c);
-    else
-        printf("\n Graph not connected,%d component",c);
+    printf("\n read array element\n");
+    for(i=0;i<n;i++)
+        scanf("%d",&a[i]);
+    bubblesort(a,n);
+    printf("\n Sorted element are \n");
+    for(i=0;i<n;i++)
+        printf("%d\t",a[i]);
+        printf("comparsion=%d\n",c);
     return 0;
 }
