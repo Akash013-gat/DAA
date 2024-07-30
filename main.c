@@ -1,37 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define size 100
-int c;
-void bubblesort(int a[size],int n)
-{
-    int i,j,t;
-    for(i=0;i<=n-2;i++)
-    {
-        for(j=0;j<=n-2-i;j++)
-        {
 
-        c++;
-        if(a[j]>a[j+1])
-        {
-            t=a[j];
-            a[j]=a[j+1];
-            a[j+1]=t;
-        }
-        }
+void dfs(int a[10][10],int n,int v[10],int s)
+{
+    int i;
+    v[s]=1;
+    for(i=1;i<=n;i++)
+    {
+        if(a[s][i]==1 && v[i]==0)
+            dfs(a,n,v,i);
     }
 }
 int main()
 {
-    int i,a[size],n;
-    printf("read Array :\n");
+    int n,a[10][10],i,j,v[10],c=0;
+    printf("\n Read the number nodes : ");
     scanf("%d",&n);
-    printf("\n read array element\n");
-    for(i=0;i<n;i++)
-        scanf("%d",&a[i]);
-    bubblesort(a,n);
-    printf("\n Sorted element are \n");
-    for(i=0;i<n;i++)
-        printf("%d\t",a[i]);
-        printf("comparsion=%d\n",c);
+    printf("\n Read adjaceny matrix \n");
+    for(i=1;i<=n;i++)
+    {
+        for(j=1;j<=n;j++)
+            scanf("%d",&a[i][j]);
+    }
+    for(i=1;i<=n;i++)
+        v[i]=0;
+    for(i=1;i<=n;i++)
+    {
+        if(v[i]==0)
+        {
+            dfs(a,n,v,i);
+            c++;
+        }
+    }
+    if(c==1)
+        printf("\n Graph connected,%d component",c);
+    else
+        printf("\n Graph not connected,%d component",c);
     return 0;
 }
